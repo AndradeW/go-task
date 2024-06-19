@@ -19,8 +19,8 @@ func main() {
 	router.HandleFunc("GET /tasks", miHandler.GetAllTask)
 	//router.HandleFunc("GET /tasks/{id}", miHandler.GetTaskByID)
 
-	routera := middlewares.LoggingMiddleware(router)
+	routerWithLogging := middlewares.LoggingMiddleware(router)
 
 	log.Println("Listening on " + config.PORT)
-	log.Fatal(http.ListenAndServe(config.PORT, routera))
+	log.Fatal(http.ListenAndServe(config.PORT, routerWithLogging))
 }
