@@ -12,8 +12,13 @@ func NewService(repository repository) *Service {
 
 type repository interface {
 	GetAllTasks() ([]dtos.Task, error)
+	GetTaskByID(ID int) (dtos.Task, error)
 }
 
-func (s *Service) GetAllTask() (dtos.Tasks, error) {
+func (s *Service) GetAllTask() ([]dtos.Task, error) {
 	return s.repository.GetAllTasks()
+}
+
+func (s *Service) GetTaskByID(ID int) (dtos.Task, error) {
+	return s.repository.GetTaskByID(ID)
 }

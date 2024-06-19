@@ -1,7 +1,9 @@
 package repository
 
 import (
+	"errors"
 	"github.com/andradew/go/tasks/internal/dtos"
+	"log"
 )
 
 type Repository struct {
@@ -29,4 +31,15 @@ func (r *Repository) GetAllTasks() ([]dtos.Task, error) {
 		tasks = append(tasks, v)
 	}
 	return tasks, nil
+}
+
+func (r *Repository) GetTaskByID(ID int) (dtos.Task, error) {
+
+	if task, ok := r.Storage[ID]; ok {
+		return task, nil
+	}
+
+	log.Println("Not Found")
+
+	return dtos.Task{}, errors.New("not Found")
 }

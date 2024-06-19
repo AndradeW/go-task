@@ -15,7 +15,7 @@ func RegisterRoutes(handler *handlers.Handler) http.Handler {
 		middlewares.JsonMiddleware)
 
 	router.HandleFunc("GET /tasks", handler.GetAllTask)
-	//router.HandleFunc("GET /tasks/{id}", miHandler.GetTaskByID)
+	router.HandleFunc("GET /tasks/{id}", handler.GetTaskByID)
 
 	return routerWithGlobalMiddlewares
 }
