@@ -1,26 +1,24 @@
 package main
 
 import (
+	"github.com/andradew/go/tasks/api"
 	"log"
 	"net/http"
 
 	"github.com/andradew/go/tasks/config"
 	"github.com/andradew/go/tasks/internal/handlers"
-	"github.com/andradew/go/tasks/internal/middlewares"
 	"github.com/andradew/go/tasks/internal/repository"
 	"github.com/andradew/go/tasks/internal/services"
 )
 
 func main() {
-	router := http.NewServeMux()
+	handler := handlers.NewHandler(
+		services.NewService(
+			repository.NewRepository(),
+		))
 
-	miHandler := handlers.NewHandler(services.NewService(repository.NewRepository()))
-
-	router.HandleFunc("GET /tasks", miHandler.GetAllTask)
-	//router.HandleFunc("GET /tasks/{id}", miHandler.GetTaskByID)
-
-	routerWithLogging := middlewares.LoggingMiddleware(router)
+	router := api.RegisterRoutes(handler)
 
 	log.Println("Listening on " + config.GetPort())
-	log.Fatal(http.ListenAndServe(config.GetPort(), routerWithLogging))
+	log.Fatal(http.ListenAndServe(config.GetPort(), router))
 }

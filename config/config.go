@@ -4,7 +4,7 @@ import (
 	"os"
 )
 
-const PORT = ":8080"
+const PORT = "8080"
 
 func GetPort() string {
 	if port := os.Getenv("PORT"); port == "" {

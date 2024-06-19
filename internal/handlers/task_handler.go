@@ -27,7 +27,6 @@ func (h *Handler) GetAllTask(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
-	w.Header().Add("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(&tasks)
 }
 
