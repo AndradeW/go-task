@@ -21,6 +21,6 @@ func main() {
 
 	routerWithLogging := middlewares.LoggingMiddleware(router)
 
-	log.Println("Listening on " + config.PORT)
-	log.Fatal(http.ListenAndServe(config.PORT, routerWithLogging))
+	log.Println("Listening on " + config.GetPort())
+	log.Fatal(http.ListenAndServe(config.GetPort(), routerWithLogging))
 }
