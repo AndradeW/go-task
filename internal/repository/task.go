@@ -52,6 +52,17 @@ func (r *Repository) CreateTask(task dtos.Task) (dtos.Task, error) {
 	return r.Storage[task.ID], nil
 }
 
+func (r *Repository) UpdateTaskByID(ID int, task dtos.Task) (dtos.Task, error) {
+	if _, ok := r.Storage[ID]; !ok {
+		log.Println("Not Found")
+		return dtos.Task{}, errors.New("not Found")
+	}
+
+	task.ID = ID
+	r.Storage[ID] = task
+	return r.Storage[ID], nil
+}
+
 func (r *Repository) DeleteTaskByID(ID int) error {
 
 	if _, ok := r.Storage[ID]; !ok {
