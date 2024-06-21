@@ -1,9 +1,10 @@
 package api
 
 import (
+	"net/http"
+
 	"github.com/andradew/go/tasks/internal/handlers"
 	"github.com/andradew/go/tasks/internal/middlewares"
-	"net/http"
 )
 
 func RegisterRoutes(handler *handlers.Handler) http.Handler {

@@ -2,10 +2,11 @@ package handlers
 
 import (
 	"encoding/json"
-	"github.com/andradew/go/tasks/internal/dtos"
-	"github.com/go-playground/validator/v10"
 	"net/http"
 	"strconv"
+
+	"github.com/andradew/go/tasks/internal/dtos"
+	"github.com/go-playground/validator/v10"
 )
 
 type Handler struct {

@@ -2,8 +2,9 @@ package repository
 
 import (
 	"errors"
-	"github.com/andradew/go/tasks/internal/dtos"
 	"log"
+
+	"github.com/andradew/go/tasks/internal/dtos"
 )
 
 type Repository struct {

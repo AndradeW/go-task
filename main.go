@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/andradew/go/tasks/api"
 	"log"
 	"net/http"
 
+	"github.com/andradew/go/tasks/api"
 	"github.com/andradew/go/tasks/config"
 	"github.com/andradew/go/tasks/internal/handlers"
 	"github.com/andradew/go/tasks/internal/repository"
