@@ -43,3 +43,10 @@ func (r *Repository) GetTaskByID(ID int) (dtos.Task, error) {
 
 	return dtos.Task{}, errors.New("not Found")
 }
+
+func (r *Repository) CreateTask(task dtos.Task) (dtos.Task, error) {
+	task.ID = len(r.Storage) + 1
+	r.Storage[task.ID] = task
+
+	return r.Storage[task.ID], nil
+}
