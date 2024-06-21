@@ -23,6 +23,7 @@ type service interface {
 	GetTaskByID(ID int) (dtos.Task, error)
 	CreateTask(task dtos.Task) (dtos.Task, error)
 	//UpdateTaskByID(ID int) (dtos.Task, error)
+	DeleteTaskByID(ID int) error
 }
 
 func (h *Handler) GetAllTask(w http.ResponseWriter, req *http.Request) {
@@ -30,6 +31,7 @@ func (h *Handler) GetAllTask(w http.ResponseWriter, req *http.Request) {
 	tasks, err := h.service.GetAllTask()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
 	json.NewEncoder(w).Encode(&tasks)
@@ -45,7 +47,8 @@ func (h *Handler) GetTaskByID(w http.ResponseWriter, req *http.Request) {
 
 	task, err := h.service.GetTaskByID(id)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, err.Error(), http.StatusNotFound)
+		return
 	}
 
 	json.NewEncoder(w).Encode(&task)
@@ -57,17 +60,20 @@ func (h *Handler) CreateTask(w http.ResponseWriter, req *http.Request) {
 	err := json.NewDecoder(req.Body).Decode(&task)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
 	}
 
 	validate := validator.New()
 	err = validate.Struct(task)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
 	}
 
 	tasks, err := h.service.CreateTask(task)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
 	json.NewEncoder(w).Encode(&tasks)
@@ -82,3 +88,20 @@ func (h *Handler) CreateTask(w http.ResponseWriter, req *http.Request) {
 //
 //	json.NewEncoder(w).Encode(&tasks)
 //}
+
+func (h *Handler) DeleteTask(w http.ResponseWriter, req *http.Request) {
+	idString := req.PathValue("id")
+	id, err := strconv.Atoi(idString)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	err = h.service.DeleteTaskByID(id)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
+}

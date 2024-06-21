@@ -18,6 +18,7 @@ func RegisterRoutes(handler *handlers.Handler) http.Handler {
 	router.HandleFunc("GET /tasks/{id}", handler.GetTaskByID)
 	router.HandleFunc("POST /tasks", handler.CreateTask)
 	//router.HandleFunc("PUT /tasks", handler.UpdateTask)
+	router.HandleFunc("DELETE /tasks/{id}", handler.DeleteTask)
 
 	return routerWithGlobalMiddlewares
 }

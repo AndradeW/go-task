@@ -45,8 +45,21 @@ func (r *Repository) GetTaskByID(ID int) (dtos.Task, error) {
 }
 
 func (r *Repository) CreateTask(task dtos.Task) (dtos.Task, error) {
+	//TODO revisar, cambiar len porque al borrar se sobrescriben los id
 	task.ID = len(r.Storage) + 1
 	r.Storage[task.ID] = task
 
 	return r.Storage[task.ID], nil
+}
+
+func (r *Repository) DeleteTaskByID(ID int) error {
+
+	if _, ok := r.Storage[ID]; !ok {
+		log.Println("Not Found")
+		return errors.New("not Found")
+	}
+
+	delete(r.Storage, ID)
+
+	return nil
 }
