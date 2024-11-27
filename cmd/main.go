@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/andradew/go/tasks/api"
 	"github.com/andradew/go/tasks/config"
+	"github.com/andradew/go/tasks/internal/api"
 	"github.com/andradew/go/tasks/internal/handlers"
 	"github.com/andradew/go/tasks/internal/repository"
 	"github.com/andradew/go/tasks/internal/services"
